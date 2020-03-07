@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +7,8 @@ public class PlayerController : MonoBehaviour
     public bool isPlayer = false;
 
     public string username;
+
+    public TextMeshProUGUI usernameText;
 
     public float money { get; private set; }
 
@@ -32,5 +33,10 @@ public class PlayerController : MonoBehaviour
             return;
         }
         this.money -= amount;
+    }
+
+    public void SetName()
+    {
+        this.usernameText.text = this.username;
     }
 }

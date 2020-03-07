@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GridGenerator : MonoBehaviour
 {
-    private int rows = 5;
-    private int cols = 8;
+    private int rows = 30;
+    private int cols = 30;
     private float tileSize = 4;
 
     public GameObject grassTile;
@@ -17,18 +17,24 @@ public class GridGenerator : MonoBehaviour
 
     private void Generategrid()
     {
+        var x = -60;
+        var y = 50;
+
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < cols; col++)
             {
-                GameObject tile = (GameObject)Instantiate(grassTile, transform);
+                var vector2 = new Vector2(x, y);
+                GameObject tile = (GameObject)Instantiate(grassTile, vector2, Quaternion.identity);
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
-
-                tile.transform.position = new Vector2(posX, posY);
+                //tile.transform.position = new Vector2(posX, posY);
+                x += 4;
             }
+            x = -60;
+            y -= 4;
         }
-        
+
 
     }
 
