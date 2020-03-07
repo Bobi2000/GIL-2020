@@ -119,7 +119,7 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator Movement(string url)
     {
-        Debug.Log("In movement");
+
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
