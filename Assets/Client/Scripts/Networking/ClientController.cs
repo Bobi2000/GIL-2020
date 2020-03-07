@@ -146,8 +146,17 @@ public class ClientController : MonoBehaviour
 
                     var args1Number = args[1].Replace(',', '.');
                     var args2Number = args[2].Replace(',', '.');
+                    var vector2 = new Vector2(1f, 1f);
+                    try
+                    {
+                        vector2 = new Vector2(float.Parse(args[1]), float.Parse(args[2]));
+                    }
+                    catch (Exception)
+                    {
 
-                    var vector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
+                        vector2 = new Vector2((float)decimal.Parse(args[1]), (float)decimal.Parse(args[2]));
+                    }
+                    
 
                     var player = this.players.Where(p => p.GetComponent<PlayerController>().username == username && !p.GetComponent<PlayerController>().isPlayer).FirstOrDefault();
 
