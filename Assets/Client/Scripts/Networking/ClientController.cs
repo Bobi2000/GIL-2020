@@ -90,7 +90,6 @@ public class ClientController : MonoBehaviour
                     if (this.username == currentUsername)
                     {
                         currentPlayer.GetComponent<PlayerController>().isPlayer = true;
-                        currentPlayer.GetComponent<PlayerController>().ChangeName();
                     }
                 }
             }
@@ -174,6 +173,7 @@ public class ClientController : MonoBehaviour
                         var newVector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
                         var newPlayer = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
                         newPlayer.GetComponent<PlayerController>().username = args[0];
+                        newPlayer.GetComponent<PlayerController>().SetName();
                         this.players.Add(newPlayer);
                     }
                 }
@@ -202,15 +202,12 @@ public class ClientController : MonoBehaviour
                     var args = item.Split(':');
                     var vector2 = new Vector2(float.Parse(args[1]), float.Parse(args[2]));
 
-
-
-
                     if (args[0] == username)
                     {
                         var player = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
                         player.GetComponent<PlayerController>().username = args[0];
                         player.GetComponent<PlayerController>().isPlayer = true;
-                        player.GetComponent<PlayerController>().ChangeName();
+                        player.GetComponent<PlayerController>().SetName();
                         this.players.Add(player);
                     }
 
