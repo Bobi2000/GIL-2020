@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class TowerController : MonoBehaviour
 {
+    private float timeBtwShots;
+    public float startTimeBtwShots = 2f;
 
     public float MaxHealth;
     public float CurrentHealth;
@@ -18,13 +20,18 @@ public class TowerController : MonoBehaviour
     public float sellCoef = 0.6f;
     public float repairCoef = 0.4f;
 
-    public GameObject range;
-    PlayerController player= new PlayerController();
+    public CircleCollider2D BulletMelle;
 
-    RandomGenerator generator=new RandomGenerator();   
+
+    public GameObject bullet;
+    PlayerController player = new PlayerController();
+
+    private GameObject Enemy;
+
+    RandomGenerator generator = new RandomGenerator();
     void Start()
     {
-        range.GetComponent<CircleCollider2D>().radius = this.Range/10;
+        // GetComponent<CircleCollider2D>().radius = this.Range / 10;
     }
 
     // Update is called once per frame
@@ -33,6 +40,18 @@ public class TowerController : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             Upgrade();
+        }
+
+        if (timeBtwShots <= 0 && Enemy != null)
+        {
+            Debug.Log(timeBtwShots);
+            Shoot(Enemy);
+            timeBtwShots = startTimeBtwShots;
+
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
         }
     }
 
@@ -46,10 +65,10 @@ public class TowerController : MonoBehaviour
         var UpdateStats = generator.RandomTurretStatsOnUpdate(player.badLuck);
         this.MaxHealth += UpdateStats[0];
         this.Damage += UpdateStats[1];
-        this.Range += UpdateStats[2];
-        range.GetComponent<CircleCollider2D>().radius = this.Range/10;
+        //  this.Range += UpdateStats[2];
+        GetComponent<CircleCollider2D>().radius = this.Range / 10;
         var avatageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
-        NextUpgradeCost += avatageUpgrade*10;
+        NextUpgradeCost += avatageUpgrade * 10;
         var logUpgrade = $"{Damage} {Range } ";
         Debug.Log(logUpgrade);
     }
@@ -62,5 +81,27 @@ public class TowerController : MonoBehaviour
     private void Repair()
     {
         this.player.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Enemys")
+        {
+            Enemy = collider.gameObject;
+        }
+    }
+    private void Shoot(GameObject enemyToShoot)
+    {
+        var currenBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
+        currenBullet.GetComponent<BulletController>().ShootEnemy(enemyToShoot);
+    }
+    public void DealTurretDamage(float amount)
+    {
+        this.CurrentHealth -= amount;
+        if (this.CurrentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
     }
 }
