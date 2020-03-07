@@ -26,6 +26,9 @@ public class GridGenerator : MonoBehaviour
             {
                 var vector2 = new Vector2(x, y);
                 GameObject tile = (GameObject)Instantiate(grassTile, vector2, Quaternion.identity);
+
+                tile.AddComponent<TileController>();
+
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
                 //tile.transform.position = new Vector2(posX, posY);

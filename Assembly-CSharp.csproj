@@ -69,6 +69,7 @@
     <Compile Include="Assets\Client\Scripts\Gameplay\PlayerController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\PlayerMovement.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\RandomGenerator.cs" />
+    <Compile Include="Assets\Client\Scripts\Gameplay\TileController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\TowerController.cs" />
     <Compile Include="Assets\Client\Scripts\Networking\ClientController.cs" />
     <Compile Include="Assets\Ghoul_Menu.cs" />
