@@ -90,7 +90,6 @@ public class ClientController : MonoBehaviour
                     if (this.username == currentUsername)
                     {
                         currentPlayer.GetComponent<PlayerController>().isPlayer = true;
-                        currentPlayer.GetComponent<PlayerController>().ChangeName();
                     }
                 }
             }
@@ -210,7 +209,6 @@ public class ClientController : MonoBehaviour
                         var player = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
                         player.GetComponent<PlayerController>().username = args[0];
                         player.GetComponent<PlayerController>().isPlayer = true;
-                        player.GetComponent<PlayerController>().ChangeName();
                         this.players.Add(player);
                     }
 
