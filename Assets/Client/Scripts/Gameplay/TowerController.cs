@@ -55,10 +55,6 @@ public class TowerController : MonoBehaviour
         }
     }
 
-    private void Build()
-    {
-        throw new NotImplementedException();
-    }
 
     private void Upgrade()
     {

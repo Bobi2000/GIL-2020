@@ -15,6 +15,8 @@ public class EnemyController : MonoBehaviour
 
     private CircleCollider2D TurretMelleRange;
 
+    private BigSpawner spawner = new BigSpawner();
+
     private Vector2 moveTo = new Vector2(0, 0);
     private TowerController CurrentTarget;
 
@@ -73,6 +75,7 @@ public class EnemyController : MonoBehaviour
         if (this.health <= 0)
         {
             Destroy(gameObject);
+            spawner.KillEnemy();
 
         }
     }

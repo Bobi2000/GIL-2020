@@ -5,6 +5,8 @@ using UnityEngine;
 public class TileController : MonoBehaviour
 {
     private Vector2 currentPosition;
+
+    public GameObject Turret;
     void Start()
     {
     }
@@ -12,23 +14,34 @@ public class TileController : MonoBehaviour
   
     void Update()
     {
+       
+    }
+    private void OnMouseOver()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.7f);
         if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("build turret");
+        {         
+            Instantiate(Turret, this.transform.position, Quaternion.identity);
+
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("build wall");
         }
-    }
-    private void OnMouseOver()
-    {
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.7f);
-        this.currentPosition = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+
     }
     private void OnMouseExit()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(Turret, this.transform.position, Quaternion.identity);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("build wall");
+        }
     }
     void OnMouseDown()
     {
