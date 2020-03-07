@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using TMPro;
 using UnityEngine;
-using System.Runtime.InteropServices;
 using UnityEngine.Networking;
-using System.Collections;
 
 public class ClientController : MonoBehaviour
 {
@@ -20,11 +19,14 @@ public class ClientController : MonoBehaviour
     public PlayerMovement playerMovement;
 
     public GameObject button;
+    public GameObject LoginPanel;
     public TextMeshProUGUI usernameText;
     public string username;
 
     public IList<GameObject> players = new List<GameObject>();
     private DownloadHandler downloadHandler;
+
+    private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
     public void WriteToServer(string message)
     {
@@ -41,12 +43,15 @@ public class ClientController : MonoBehaviour
 
     private void Start()
     {
+        InvokeRepeating("GetMovements", 0.1f, 0.1f);
         //new Thread(this.ReadFromServer).Start();
     }
 
+
+
     private void Update()
     {
-        this.ReadFromServer();
+        //this.ReadFromServer();
     }
 
     private void ReadFromServer()
@@ -88,10 +93,90 @@ public class ClientController : MonoBehaviour
         }
     }
 
+    private void GetMovements()
+    {
+        StartCoroutine(Movement($@"{url}/api/values/"));
+    }
+
     private void SetUp()
     {
-        StartCoroutine(SendRequest(@"https://webaplicationgameserver20200307081805.azurewebsites.net/api/values"));
+        this.username = this.usernameText.text;
+
+        StartCoroutine(SendRequest($@"{url}/api/values/{this.username}/type"));
     }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Exiting...");
+
+        StartCoroutine(LeaveServer($@"{url}/api/values/{this.username}/type/type"));
+
+        //this.WriteToServer("@:logout");
+    }
+
+    private IEnumerator Movement(string url)
+    {
+        Debug.Log("In movement");
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+                downloadHandler = request.downloadHandler;
+                var text = downloadHandler.text.Split(new[] { '"', '[', '\\', ']', '$' }).Where(a => a.Length > 3).ToList();
+
+                foreach (var item in text)
+                {
+                    var args = item.Split(':');
+
+                    var username = args[0];
+
+                    if (username == "")
+                    {
+                        continue;
+                    }
+
+                    var args1Number = args[1].Replace(',', '.');
+                    var args2Number = args[2].Replace(',', '.');
+
+                    var vector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
+
+                    var player = this.players.Where(p => p.GetComponent<PlayerController>().username == username && !p.GetComponent<PlayerController>().isPlayer).FirstOrDefault();
+
+                    if (player != null)
+                    {
+                        player.GetComponent<PlayerMovement>().SetMovement(vector2);
+                    }
+                    /*else if (player == null && this.username != args[0] && this.players.Where(p => p.GetComponent<PlayerController>().username != args[0]).FirstOrDefault() == null)
+                    {
+                        var newVector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
+                        var newPlayer = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
+                        newPlayer.GetComponent<PlayerController>().username = args[0];
+                        this.players.Add(newPlayer);
+                    }*/
+
+
+                    bool containsItem = this.players.Any(i => i.GetComponent<PlayerController>().username == args[0]);
+
+
+
+                    if (!containsItem)
+                    {
+                        var newVector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
+                        var newPlayer = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
+                        newPlayer.GetComponent<PlayerController>().username = args[0];
+                        this.players.Add(newPlayer);
+                    }
+                }
+            }
+        }
+    }
+
 
     private IEnumerator SendRequest(string url)
     {
@@ -106,37 +191,43 @@ public class ClientController : MonoBehaviour
             else
             {
                 downloadHandler = request.downloadHandler;
-                Debug.Log(downloadHandler.text);
+                var text = downloadHandler.text.Split(new[] { '"', '[', '\\', ']', '$' }).Where(a => a.Length > 3).ToList();
+
+                foreach (var item in text)
+                {
+                    var args = item.Split(':');
+                    var vector2 = new Vector2(float.Parse(args[1]), float.Parse(args[2]));
+
+
+
+
+                    if (args[0] == username)
+                    {
+                        var player = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
+                        player.GetComponent<PlayerController>().username = args[0];
+                        player.GetComponent<PlayerController>().isPlayer = true;
+                        this.players.Add(player);
+                    }
+
+                    this.LoginPanel.SetActive(false);
+                }
             }
         }
     }
 
-    private void OnApplicationQuit()
+    private IEnumerator LeaveServer(string url)
     {
-        Debug.Log("Exiting...");
-        this.WriteToServer("@:logout");
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+            }
+        }
     }
 }
-
-/*
-        Debug.Log(this.usernameText.text);
-        try
-        {
-            this.username = this.usernameText.text;
-
-            this.client = new TcpClient("127.0.0.1", 1300);
-            Debug.Log("Connected!");
-
-            this.reader = new StreamReader(this.client.GetStream());
-            this.writer = new StreamWriter(this.client.GetStream());
-
-            this.WriteToServer($"@:login:{this.username}");
-        }
-        catch (Exception)
-        {
-            Debug.Log("Can't connect to Master Server!");
-            Debug.Log("Retrying!");
-            //Thread.Sleep(400);
-            this.SetUp();
-        }
-*/
