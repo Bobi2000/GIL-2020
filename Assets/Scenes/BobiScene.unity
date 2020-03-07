@@ -2078,6 +2078,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 7203671055742898824, guid: 0fafbbcbf018b5745a935a7ba3cba1c7,
     type: 3}
   playerMovement: {fileID: 0}
+  grid: {fileID: 1013354919}
+  ghouls: {fileID: 243875584}
   button: {fileID: 1677981475}
   LoginPanel: {fileID: 1599144023}
   usernameText: {fileID: 631607112}
