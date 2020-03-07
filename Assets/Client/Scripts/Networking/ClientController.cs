@@ -165,8 +165,6 @@ public class ClientController : MonoBehaviour
                     }*/
 
 
-                    
-
                     bool containsItem = this.players.Any(i => i.GetComponent<PlayerController>().username == args[0]);
 
 
