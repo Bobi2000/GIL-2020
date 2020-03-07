@@ -2652,6 +2652,7 @@ MonoBehaviour:
     type: 3}
   playerMovement: {fileID: 0}
   button: {fileID: 1677981475}
+  LoginPanel: {fileID: 1599144023}
   usernameText: {fileID: 631607112}
   username: 
 --- !u!1 &1599144023
