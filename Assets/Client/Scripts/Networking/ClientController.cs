@@ -18,6 +18,9 @@ public class ClientController : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
+    public GameObject grid;
+    public GameObject ghouls;
+
     public GameObject button;
     public GameObject LoginPanel;
     public TextMeshProUGUI usernameText;
@@ -210,6 +213,8 @@ public class ClientController : MonoBehaviour
                     }
 
                     this.LoginPanel.SetActive(false);
+                    this.grid.SetActive(false);
+                    this.ghouls.SetActive(false);
                 }
             }
         }
