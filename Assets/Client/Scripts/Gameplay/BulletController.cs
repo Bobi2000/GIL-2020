@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
@@ -9,19 +7,12 @@ public class BulletController : MonoBehaviour
     private bool isDestroied = false;
     private static Vector2 direction;
 
-
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (EnemyToShoot)
         {
             if (enemy != null)
             {
-
                 this.transform.position = Vector2.MoveTowards(this.transform.position, this.enemy.transform.position, Time.deltaTime * 10);
                 direction = this.enemy.transform.position;
             }
@@ -29,7 +20,6 @@ public class BulletController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-
         }
     }
 

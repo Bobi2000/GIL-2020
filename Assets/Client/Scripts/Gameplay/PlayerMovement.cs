@@ -37,12 +37,9 @@ public class PlayerMovement : MonoBehaviour
                 var urll = $@"{url}/api/values/{this.playerController.username}/{this.NextPosition.x:F2}/{this.NextPosition.y:F2}/type";
                 StartCoroutine(MoveToServer(urll));
             }
-
-
         }
 
         this.Move();
-
     }
 
     private IEnumerator MoveToServer(string url)

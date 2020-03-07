@@ -31,6 +31,8 @@ public class ClientController : MonoBehaviour
 
     private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
+    public static PlayerController playerController;
+
     public void WriteToServer(string message)
     {
         this.writer.WriteLine(message);
@@ -208,6 +210,11 @@ public class ClientController : MonoBehaviour
                         player.GetComponent<PlayerController>().username = args[0];
                         player.GetComponent<PlayerController>().isPlayer = true;
                         player.GetComponent<PlayerController>().SetName();
+
+                        playerController = player.GetComponent<PlayerController>();
+
+                        //Camera.main.transform.SetParent(player.transform);
+
                         this.players.Add(player);
                     }
 

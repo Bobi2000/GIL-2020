@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
         SpawnLine = (int)this.transform.localScale.x / 2;
     }
 
-
     void Update()
     {
         if (timeBtwShots <= 0)
@@ -35,7 +34,6 @@ public class EnemySpawner : MonoBehaviour
         {
             timeBtwShots -= Time.deltaTime;
         }
-
     }
 
     private void SpawnEnemys()
@@ -46,7 +44,6 @@ public class EnemySpawner : MonoBehaviour
         spawner.SpawnEnemy();
         Debug.Log(lineSpawn);
         spawnPoint = new Vector2(this.transform.position.x, Random.Range(-50, 50));
-
 
         Instantiate(Enemys, spawnPoint, Quaternion.identity);
     }

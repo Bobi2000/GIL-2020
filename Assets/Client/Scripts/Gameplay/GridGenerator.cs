@@ -37,13 +37,5 @@ public class GridGenerator : MonoBehaviour
             x = -60;
             y -= 4;
         }
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

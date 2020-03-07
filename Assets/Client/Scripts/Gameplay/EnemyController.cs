@@ -21,26 +21,19 @@ public class EnemyController : MonoBehaviour
     private TowerController CurrentTarget;
 
     private bool canAttack = false;
-    private void Start()
-    {
-
-    }
 
     private void Update()
     {
         Move();
         if (timeBtwShots <= 0 && CurrentTarget != null)
         {
-
             Attack();
             timeBtwShots = startTimeBtwShots;
-
         }
         else
         {
             timeBtwShots -= Time.deltaTime;
         }
-
     }
 
     private void Move()
@@ -76,7 +69,6 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
             spawner.KillEnemy();
-
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -95,7 +87,5 @@ public class EnemyController : MonoBehaviour
                 canAttack = true;
             }
         }
-
     }
-
 }
