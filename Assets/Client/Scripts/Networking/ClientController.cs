@@ -198,9 +198,6 @@ public class ClientController : MonoBehaviour
                     ci.NumberFormat.CurrencyDecimalSeparator = ".";
                     vector2 = new Vector2(float.Parse(args[1], NumberStyles.Any, ci), float.Parse(args[2], NumberStyles.Any, ci));
 
-
-
-
                     var player = this.players.Where(p => p.GetComponent<PlayerController>().username == username && !p.GetComponent<PlayerController>().isPlayer).FirstOrDefault();
 
                     if (player != null)
