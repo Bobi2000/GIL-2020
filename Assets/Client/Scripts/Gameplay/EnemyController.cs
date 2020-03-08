@@ -13,14 +13,19 @@ public class EnemyController : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots = 2f;
 
-    private CircleCollider2D TurretMelleRange;
+    public CircleCollider2D TurretMelleRange;
 
-    private BigSpawner spawner = new BigSpawner();
+   // private BigSpawner spawner = new BigSpawner();
 
     private Vector2 moveTo = new Vector2(0, 0);
     private TowerController CurrentTarget;
 
     private bool canAttack = false;
+
+    private void Start()
+    {
+
+    }
 
     private void Update()
     {
@@ -68,7 +73,7 @@ public class EnemyController : MonoBehaviour
         if (this.health <= 0)
         {
             Destroy(gameObject);
-            spawner.KillEnemy();
+           // spawner.KillEnemy();
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -87,5 +92,6 @@ public class EnemyController : MonoBehaviour
                 canAttack = true;
             }
         }
+
     }
 }

@@ -46,7 +46,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.38
+  m_Radius: 2.24
 --- !u!1 &7660564872416536145
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,11 +144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4385bf34accf447991a5fcac7430e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 10000
   speed: 10
   attack: 1
   gold: 0
   startTimeBtwShots: 2
+  TurretMelleRange: {fileID: 0}
 --- !u!58 &7660564872416536159
 CircleCollider2D:
   m_ObjectHideFlags: 0

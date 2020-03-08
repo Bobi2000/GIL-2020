@@ -107,7 +107,6 @@ MonoBehaviour:
   sellCoef: 0.6
   repairCoef: 0.4
   bullet: {fileID: 4508877045111175772, guid: f788b33be2370d24fbad27359463c531, type: 3}
-  player: {fileID: 0}
 --- !u!58 &2904892385103685566
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +122,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 27.15
+  m_Radius: 3.55
 --- !u!1 &7679524519826752093
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.08
+  m_Radius: 0.66
 --- !u!1 &7694920404890574323
 GameObject:
   m_ObjectHideFlags: 0
