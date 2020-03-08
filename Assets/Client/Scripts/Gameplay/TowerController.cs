@@ -39,6 +39,10 @@ public class TowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.CurrentHealth<=0)
+        {
+            Destroy(this.gameObject);
+        }
         if (Input.GetKeyDown("space"))
         {
             Upgrade();
