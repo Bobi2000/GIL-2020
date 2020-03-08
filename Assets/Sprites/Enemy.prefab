@@ -151,6 +151,7 @@ MonoBehaviour:
   gold: 0
   startTimeBtwShots: 2
   TurretMelleRange: {fileID: 0}
+  IsAttacking: 0
 --- !u!58 &7660564872416536159
 CircleCollider2D:
   m_ObjectHideFlags: 0
