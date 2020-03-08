@@ -118,7 +118,7 @@ public class ClientController : MonoBehaviour
 
     private void GetBaricades()
     {
-        StartCoroutine(Baricades($@"{url}/x/x/x/x/x/x/x"));
+        StartCoroutine(Baricades($@"{url}/api/values/x/x/x/x/x/x/x"));
     }
 
     private void SetUp()
