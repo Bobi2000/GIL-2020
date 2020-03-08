@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 tempPos;
 
     [SerializeField] Animator anim;
+    private Vector3 NextPosition;
+    GameObject Name;
+    Quaternion rot;
 
     private PlayerController playerController;
 
@@ -22,8 +25,15 @@ public class PlayerMovement : MonoBehaviour
     {
         this.playerController = this.gameObject.GetComponent<PlayerController>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        Name = this.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        rot = Name.transform.rotation;
+        
     }
 
+    private void LateUpdate()
+    {
+        Name.transform.rotation = rot;
+    }
     private void Update()
     {
         /*NextPosition.x = this.transform.position.x;

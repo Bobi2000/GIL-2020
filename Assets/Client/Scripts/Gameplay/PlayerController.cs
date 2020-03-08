@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetName()
     {
+        Debug.Log("setname");
         this.usernameText.text = this.username;
     }
 
