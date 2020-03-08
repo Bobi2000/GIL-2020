@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
         var lineSpawn = rnd.Next(0, SpawnLine);
         var spawnPoint = new Vector2();
         spawner.SpawnEnemy();
-        Debug.Log(lineSpawn);
+
         spawnPoint = new Vector2(this.transform.position.x, Random.Range(-50, 50));
 
         Instantiate(Enemys, spawnPoint, Quaternion.identity);

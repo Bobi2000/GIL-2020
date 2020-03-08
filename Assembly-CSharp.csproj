@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Client\Scripts\Gameplay\BigSpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\BulletController.cs" />
+    <Compile Include="Assets\Client\Scripts\Gameplay\CameraFlow.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\EnemyController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\EnemySpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\GridGenerator.cs" />

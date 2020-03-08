@@ -24,7 +24,9 @@ public class TowerController : MonoBehaviour
 
     public GameObject bullet;
 
-    public PlayerController player = ClientController.playerController;
+    
+
+   
 
     //PlayerController player = new PlayerController();
 
@@ -33,7 +35,12 @@ public class TowerController : MonoBehaviour
     RandomGenerator generator = new RandomGenerator();
     void Start()
     {
+        
         // GetComponent<CircleCollider2D>().radius = this.Range / 10;
+        //var randomStats=generator.RandomTurretStatsOnCreate(player.badLuck);
+        //this.MaxHealth = this.CurrentHealth = randomStats[0];
+        //this.Damage = randomStats[1];
+        //this.Range = randomStats[2];
     }
 
     // Update is called once per frame
@@ -50,7 +57,7 @@ public class TowerController : MonoBehaviour
 
         if (timeBtwShots <= 0 && Enemy != null)
         {
-            Debug.Log(timeBtwShots);
+
             Shoot(Enemy);
             timeBtwShots = startTimeBtwShots;
 
@@ -60,11 +67,18 @@ public class TowerController : MonoBehaviour
             timeBtwShots -= Time.deltaTime;
         }
     }
-
-
+    private void OnMouseOver()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.7f);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Upgrade();
+        }
+    }
     private void Upgrade()
     {
-        var UpdateStats = generator.RandomTurretStatsOnUpdate(player.badLuck);
+
+        var UpdateStats = generator.RandomTurretStatsOnUpdate(ClientController.playerController.badLuck);
         this.MaxHealth += UpdateStats[0];
         this.Damage += UpdateStats[1];
         //  this.Range += UpdateStats[2];
@@ -72,17 +86,17 @@ public class TowerController : MonoBehaviour
         var avatageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
         NextUpgradeCost += avatageUpgrade * 10;
         var logUpgrade = $"{Damage} {Range } ";
-        Debug.Log(logUpgrade);
+        
     }
 
     private void Sell()
     {
-        this.player.AddGold(sellCoef * TotalCost);
+        ClientController.playerController.AddGold(sellCoef * TotalCost);
     }
 
     private void Repair()
     {
-        this.player.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
+        ClientController.playerController.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
     }
 
     void OnTriggerStay2D(Collider2D collider)

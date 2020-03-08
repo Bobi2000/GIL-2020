@@ -19,6 +19,8 @@ public class ClientController : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
+    private HashSet<string> playerList=new HashSet<string>();
+
     public GameObject grid;
     public GameObject ghouls;
 
@@ -31,6 +33,8 @@ public class ClientController : MonoBehaviour
 
     public IList<GameObject> players = new List<GameObject>();
     private DownloadHandler downloadHandler;
+
+    public CameraFlow cameraFlow;
 
     private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
@@ -158,7 +162,7 @@ public class ClientController : MonoBehaviour
                         }
 
                     }
-                    Debug.Log("");
+
                 }
             }
         }
@@ -216,7 +220,8 @@ public class ClientController : MonoBehaviour
                     }*/
 
 
-                    bool containsItem = this.players.Any(i => i.GetComponent<PlayerController>().username == args[0]);
+                    bool containsItem = this.players.FirstOrDefault(i => i.GetComponent<PlayerController>().username == args[0]);
+
 
 
 
@@ -264,9 +269,11 @@ public class ClientController : MonoBehaviour
                         player.GetComponent<PlayerController>().isPlayer = true;
                         player.GetComponent<PlayerController>().SetName();
 
-                        playerController = player.GetComponent<PlayerController>();
+                        this.cameraFlow.Target = player.transform;
 
-                        Camera.main.transform.SetParent(player.transform);
+                        playerController = player.GetComponent<PlayerController>();
+                        playerList.Add(args[0]);
+                       // Camera.main.transform.SetParent(player.transform);
 
                         this.players.Add(player);
                     }
