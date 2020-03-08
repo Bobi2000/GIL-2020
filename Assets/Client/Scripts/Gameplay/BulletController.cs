@@ -7,6 +7,8 @@ public class BulletController : MonoBehaviour
     private bool isDestroied = false;
     private static Vector2 direction;
 
+    private float DamageToDeal;
+
     void Update()
     {
         if (EnemyToShoot)
@@ -23,17 +25,18 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void ShootEnemy(GameObject enemy)
+    public void ShootEnemy(GameObject enemy,float damage)
     {
         this.enemy = enemy;
         EnemyToShoot = true;
+        DamageToDeal = damage;
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
         var enemyCollider = collider.GetComponent<EnemyController>();
         if (collider.gameObject.tag == "Enemys" && isDestroied == false)
         {
-            collider.GetComponent<EnemyController>().TakeDamage(25);
+            collider.GetComponent<EnemyController>().TakeDamage(DamageToDeal);
             Destroy(gameObject);
             isDestroied = true;
         }

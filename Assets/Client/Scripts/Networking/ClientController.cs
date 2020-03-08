@@ -165,7 +165,7 @@ public class ClientController : MonoBehaviour
 
         //this.WriteToServer("@:logout");
     }
-
+    
     private IEnumerator Baricades(string url)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
