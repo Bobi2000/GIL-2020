@@ -70,7 +70,15 @@ public class PlayerMovement : MonoBehaviour
                 this.playerController.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 var urll = $@"{url}/api/values/{this.playerController.username}/{this.NextPosition.x:F2}/{this.NextPosition.y:F2}/type";
                 StartCoroutine(MoveToServer(urll));
-                
+
+            }
+            else
+            {
+                Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                diff.Normalize();
+
+                float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
             }
         }
 
