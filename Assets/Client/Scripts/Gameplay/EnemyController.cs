@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     }
     private void Attack()
     {
-        if (canAttack && CurrentTarget != null)
+        if (CurrentTarget != null)
         {
             CurrentTarget.DealTurretDamage(attack);
             var targetHp = CurrentTarget.CurrentHealth;
