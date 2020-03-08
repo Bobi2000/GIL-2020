@@ -40,6 +40,7 @@ public class ClientController : MonoBehaviour
 
     public static PlayerController playerController;
 
+    
     public void WriteToServer(string message)
     {
         this.writer.WriteLine(message);
@@ -136,7 +137,7 @@ public class ClientController : MonoBehaviour
 
         //this.WriteToServer("@:logout");
     }
-
+    
     private IEnumerator Baricades(string url)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))

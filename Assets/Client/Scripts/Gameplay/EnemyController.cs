@@ -84,6 +84,7 @@ public class EnemyController : MonoBehaviour
         health -= amount;
         if (this.health <= 0)
         {
+            ClientController.playerController.AddBadLuck();
             Destroy(gameObject);
             spawner.KillEnemy();
         }
@@ -95,7 +96,7 @@ public class EnemyController : MonoBehaviour
             moveTo.x = collision.transform.position.x;
             moveTo.y = collision.transform.position.y;
             this.CurrentTarget = collision.GetComponent<TowerController>();
-            Debug.Log("dasdas");
+
         }
      
 
