@@ -21,11 +21,13 @@ public class EnemyController : MonoBehaviour
 
     private Vector2 moveTo = new Vector2(0, 0);
     private TowerController CurrentTarget;
+    
 
     private bool canAttack = false;
 
     private void Start()
     {
+        
 
     }
 
@@ -45,19 +47,18 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-        if (CurrentTarget == null)
-        {
+        
             this.transform.position = Vector2.MoveTowards(this.transform.position, moveTo, Time.deltaTime * speed);
             if (this.CurrentTarget == null)
             {
                 this.moveTo.x = 0;
                 this.moveTo.y = 0;
             }
-        }
+        
         
         var Vector2Position = new Vector2(moveTo.x, moveTo.y);
         Vector3 lookpos = Camera.main.ScreenToViewportPoint(Vector2Position);
-        float angle = Mathf.Atan2(lookpos.y, lookpos.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(moveTo.y, moveTo.x) * Mathf.Rad2Deg;
         this.gameObject.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
@@ -76,6 +77,7 @@ public class EnemyController : MonoBehaviour
                 return;
             }
         }
+        
     }
     public void TakeDamage(float amount)
     {
@@ -93,15 +95,9 @@ public class EnemyController : MonoBehaviour
             moveTo.x = collision.transform.position.x;
             moveTo.y = collision.transform.position.y;
             this.CurrentTarget = collision.GetComponent<TowerController>();
-            this.TurretMelleRange = collision.gameObject.transform.GetChild(0).GetComponent<CircleCollider2D>();
+            Debug.Log("dasdas");
         }
-        if (this.gameObject != null && TurretMelleRange != null)
-        {
-            if (this.gameObject.GetComponent<CircleCollider2D>().bounds.Intersects(TurretMelleRange.bounds))
-            {
-                canAttack = true;
-            }
-        }
+     
 
     }
 }

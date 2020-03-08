@@ -13,8 +13,7 @@ public class TileController : MonoBehaviour
     public GameObject VerticalWall;
 
     private GameObject building;
-    private GameObject wall1;
-    private GameObject wall2;
+   
 
     public bool isBuiltOn = false;
 
@@ -59,26 +58,7 @@ public class TileController : MonoBehaviour
                 isBuiltOn = false;
             }
         }
-        if (this.wall1 != null)
-        {
-
-            var currentHp = wall1.GetComponent<WallController>().CurrentHealth;
-            if (currentHp <= 0)
-            {
-
-                isBuiltOn = false;
-            }
-        }
-        if (this.wall2 != null)
-        {
-
-            var currentHp = wall2.GetComponent<WallController>().CurrentHealth;
-            if (currentHp <= 0)
-            {
-             
-                isBuiltOn = false;
-            }
-        }
+      
 
         //if (Input.GetButtonDown("Fire1") && popUP.activeSelf &&
         //     RectTransformUtility.RectangleContainsScreenPoint(
@@ -122,13 +102,13 @@ public class TileController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-            wall1 = Instantiate(HorizontalWall, vector3, Quaternion.identity);
+            building = Instantiate(HorizontalWall, vector3, Quaternion.identity);
             isBuiltOn = true;
         }
         else if (Input.GetKeyDown(KeyCode.E) && isBuiltOn == false)
         {
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-            wall2 = Instantiate(VerticalWall, vector3, Quaternion.identity);
+            building = Instantiate(VerticalWall, vector3, Quaternion.identity);
             isBuiltOn = true;
         }
     }

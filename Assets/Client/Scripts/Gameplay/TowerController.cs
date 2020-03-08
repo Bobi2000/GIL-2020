@@ -10,6 +10,8 @@ public class TowerController : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots = 2f;
 
+    public bool IsTurret;
+
     public float MaxHealth;
     public float CurrentHealth;
     public float Damage;
@@ -49,9 +51,9 @@ public class TowerController : MonoBehaviour
             Upgrade();
         }
 
-        if (timeBtwShots <= 0 && Enemy != null)
+        if (timeBtwShots <= 0 && Enemy != null&&IsTurret)
         {
-
+            Debug.Log("shoot");
             Shoot(Enemy);
             timeBtwShots = startTimeBtwShots;
 
