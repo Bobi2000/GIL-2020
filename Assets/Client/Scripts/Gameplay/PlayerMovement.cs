@@ -34,8 +34,13 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonDown(1))
             {
                 this.NextPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                var Vector2Position = new Vector2(NextPosition.x, NextPosition.y);
+                Vector3 lookpos = Camera.main.ScreenToViewportPoint(Vector2Position);
+                float angle = Mathf.Atan2(lookpos.y, lookpos.x) * Mathf.Rad2Deg;
+                this.playerController.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 var urll = $@"{url}/api/values/{this.playerController.username}/{this.NextPosition.x:F2}/{this.NextPosition.y:F2}/type";
                 StartCoroutine(MoveToServer(urll));
+                
             }
         }
 

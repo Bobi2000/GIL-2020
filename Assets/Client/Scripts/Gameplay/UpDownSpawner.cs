@@ -44,7 +44,7 @@ public class UpDownSpawner : MonoBehaviour
         var rnd = new System.Random();
         var lineSpawn = rnd.Next(0, SpawnLine);
         var spawnPoint = new Vector2();
-        Debug.Log(lineSpawn);
+
         spawnPoint = new Vector2(Random.Range(-50, 50), this.transform.position.y);
         spawner.SpawnEnemy();
 

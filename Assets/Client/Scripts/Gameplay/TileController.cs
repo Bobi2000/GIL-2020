@@ -92,7 +92,7 @@ public class TileController : MonoBehaviour
             isBuiltOn = true;
 
             StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
-            Debug.Log(ClientController.playerController.username);
+
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
