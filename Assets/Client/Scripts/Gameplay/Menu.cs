@@ -1,10 +1,7 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.UI;
+﻿using UnityEngine;
 
-//public class Menu : MonoBehaviour
-//{
+public class Menu : MonoBehaviour
+{
 //    public List<MenuButton> buttons = new List<MenuButton>();
 //    private Vector2 mousePosition;
 //    private Vector2 fromVector2M = new Vector2(0.5f,1f);
@@ -75,4 +72,4 @@
 //        public Color hoverColor = Color.gray;
 //        public Color pressedColor = Color.gray;
 //    }
-//}
+}

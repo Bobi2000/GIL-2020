@@ -20,11 +20,13 @@ public class TowerController : MonoBehaviour
     public float sellCoef = 0.6f;
     public float repairCoef = 0.4f;
 
-    public CircleCollider2D BulletMelle;
-
+    //public CircleCollider2D BulletMelle;
 
     public GameObject bullet;
-    PlayerController player = new PlayerController();
+
+    public PlayerController player = ClientController.playerController;
+
+    //PlayerController player = new PlayerController();
 
     private GameObject Enemy;
 

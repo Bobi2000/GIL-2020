@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private void Death()
     {
-        throw new NotImplementedException();
+       // throw new NotImplementedException();
     }
     public void AddGold(float amount)
     {
