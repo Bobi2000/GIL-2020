@@ -7,10 +7,9 @@ using UnityEngine.Networking;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject player;
-    //private Vector2 NextPosition;
     private Vector2 tempPos;
 
-    [SerializeField] Animator anim;
+    Animator anim;
     private Vector3 NextPosition;
     GameObject Name;
     Quaternion rot;
@@ -19,12 +18,13 @@ public class PlayerMovement : MonoBehaviour
 
     private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
-    Rigidbody2D rb;
+    
 
     private void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
         this.playerController = this.gameObject.GetComponent<PlayerController>();
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        
         Name = this.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
         rot = Name.transform.rotation;
         
@@ -56,11 +56,13 @@ public class PlayerMovement : MonoBehaviour
         {
             this.GetComponent<SpriteRenderer>().enabled = true;
         }*/
-
+        
+       
         if (this.playerController.isPlayer)
         {
             if (Input.GetMouseButtonDown(1))
             {
+               // anim.SetBool("isWalking", true);
                 this.NextPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var Vector2Position = new Vector2(NextPosition.x, NextPosition.y);
                 Vector3 lookpos = Camera.main.ScreenToViewportPoint(Vector2Position);
@@ -68,9 +70,23 @@ public class PlayerMovement : MonoBehaviour
                 this.playerController.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 var urll = $@"{url}/api/values/{this.playerController.username}/{this.NextPosition.x:F2}/{this.NextPosition.y:F2}/type";
                 StartCoroutine(MoveToServer(urll));
-                
+
+            }
+            else
+            {
+                Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                diff.Normalize();
+
+                float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
             }
         }
+
+        
+       
+            //anim.SetBool("isWalking", false);
+       
+        
 
         this.Move();
     }
