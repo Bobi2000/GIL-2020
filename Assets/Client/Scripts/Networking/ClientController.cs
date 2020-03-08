@@ -40,7 +40,10 @@ public class ClientController : MonoBehaviour
 
     public static PlayerController playerController;
 
-    
+    public TextMeshProUGUI scoreBoard1;
+    public TextMeshProUGUI scoreBoard2;
+    public TextMeshProUGUI scoreBoard3;
+
     public void WriteToServer(string message)
     {
         this.writer.WriteLine(message);
@@ -61,6 +64,31 @@ public class ClientController : MonoBehaviour
         InvokeRepeating("GetTowers", 0.5f, 0.5f);
         //new Thread(this.ReadFromServer).Start();
         InvokeRepeating("GetBaricades", 0.5f, 0.5f);
+
+        InvokeRepeating("GetPoints", 5f, 5f);
+    }
+
+    private void GetPoints()
+    {
+        if (this.players.Count != 0)
+        {
+            foreach (var player in this.players)
+            {
+                player.GetComponent<PlayerController>().points += UnityEngine.Random.Range(5, 15);
+            }
+
+            var players = this.players.OrderByDescending(p => p.GetComponent<PlayerController>().points).Take(3).ToList();
+
+            this.scoreBoard1.text = players[0].GetComponent<PlayerController>().username + " : " + players[0].GetComponent<PlayerController>().points;
+            if (players[1] != null)
+            {
+                this.scoreBoard2.text = players[1].GetComponent<PlayerController>().username + " : " + players[1].GetComponent<PlayerController>().points;
+            }
+            if (players[2] != null)
+            {
+                this.scoreBoard3.text = players[2].GetComponent<PlayerController>().username + " : " + players[2].GetComponent<PlayerController>().points;
+            }
+        }
     }
 
     private void Update()
@@ -131,8 +159,6 @@ public class ClientController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Exiting...");
-
         StartCoroutine(LeaveServer($@"{url}/api/values/{this.username}/type/type"));
 
         //this.WriteToServer("@:logout");
@@ -146,7 +172,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -185,7 +211,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -221,7 +247,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -289,7 +315,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -335,7 +361,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
