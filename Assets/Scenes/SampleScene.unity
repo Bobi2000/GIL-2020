@@ -295,6 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcbf8a214e501a438dad970884dc7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
+  username: 
+  usernameText: {fileID: 0}
 --- !u!212 &806408020
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -470,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbb2211235374b4d8df31e7ab3a3e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTimeBtwShots: 2
   MaxHealth: 0
   CurrentHealth: 0
   Damage: 0
@@ -478,7 +482,8 @@ MonoBehaviour:
   TotalCost: 10
   sellCoef: 0.6
   repairCoef: 0.4
-  range: {fileID: 600074566}
+  bullet: {fileID: 0}
+  player: {fileID: 0}
 --- !u!212 &2124223402
 SpriteRenderer:
   m_ObjectHideFlags: 0
