@@ -98,19 +98,20 @@ public class TileController : MonoBehaviour
 
             StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
 
+
         }
         else if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-            building = Instantiate(HorizontalWall, vector3, Quaternion.identity);
+            Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            diff.Normalize();
+
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            var rotaion = Quaternion.Euler(0f, 0f, rot_z - 90);
+            building = Instantiate(HorizontalWall, vector3, rotaion);
             isBuiltOn = true;
         }
-        else if (Input.GetKeyDown(KeyCode.E) && isBuiltOn == false)
-        {
-            var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-            building = Instantiate(VerticalWall, vector3, Quaternion.identity);
-            isBuiltOn = true;
-        }
+        
     }
     public void CreateTower()
     {

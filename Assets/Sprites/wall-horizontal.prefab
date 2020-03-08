@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7143779598042523494}
   - component: {fileID: 1945356317879683428}
   - component: {fileID: 332918493021499722}
+  - component: {fileID: 6482360620235988372}
   m_Layer: 0
   m_Name: wall-horizontal
   m_TagString: Turret
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTimeBtwShots: 2
+  IsTurret: 0
   MaxHealth: 1000
   CurrentHealth: 1000
   Damage: 0
@@ -131,3 +133,24 @@ MonoBehaviour:
   sellCoef: 0.6
   repairCoef: 0.4
   bullet: {fileID: 3459155941832958907, guid: b2c643fa1da4049499db667f4e1d43f8, type: 3}
+--- !u!50 &6482360620235988372
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960925314195061006}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
