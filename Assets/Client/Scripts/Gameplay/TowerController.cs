@@ -62,7 +62,7 @@ public class TowerController : MonoBehaviour
     }
 
 
-    private void Upgrade()
+    public void Upgrade()
     {
         var UpdateStats = generator.RandomTurretStatsOnUpdate(player.badLuck);
         this.MaxHealth += UpdateStats[0];
@@ -75,8 +75,9 @@ public class TowerController : MonoBehaviour
         Debug.Log(logUpgrade);
     }
 
-    private void Sell()
+    public void Sell()
     {
+        
         this.player.AddGold(sellCoef * TotalCost);
     }
 

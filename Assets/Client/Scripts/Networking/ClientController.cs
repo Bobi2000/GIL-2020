@@ -158,7 +158,6 @@ public class ClientController : MonoBehaviour
                         }
 
                     }
-                    Debug.Log("");
                 }
             }
         }
