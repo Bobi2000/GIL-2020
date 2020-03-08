@@ -88,14 +88,85 @@ public class EnemyController : MonoBehaviour
             spawner.KillEnemy();
         }
     }
+
+    Vector2 offset(Vector2 end, Vector2 start)
+    {
+        float offsetX = 1f;
+        float offsetY = 1f;
+
+        float x = 0;
+        float y = 0;
+        if (end.x > start.x)
+        {
+            if (end.x > 0)
+            {
+                x = end.x - offsetX;
+            }
+            else if (end.x < 0)
+            {
+                x = end.x + offsetX;
+            }
+        }else if (end.x < start.x)
+        {
+            if (end.x > 0)
+            {
+                x = end.x + offsetX;
+            }
+            else if (end.x < 0)
+            {
+                x = end.x - offsetX;
+            }
+        }
+        else if (end.x == 0)
+        {
+           x = end.x;
+        }
+
+
+        if (end.y > start.y)
+        {
+            if (end.y > 0)
+            {
+                y = end.y - offsetY;
+            }
+            else if (end.y < 0)
+            {
+                y = end.y + offsetY;
+            }
+        }
+        else if (end.y < start.y)
+        {
+            if (end.y > 0)
+            {
+                y = end.y + offsetY;
+            }
+            else if (end.y < 0)
+            {
+                y = end.y - offsetY;
+            }
+        }else if (end.y == 0)
+        {
+            y = end.y;
+        }
+        return new Vector2(x, y);
+
+        
+
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         if (moveTo.x == 0 && moveTo.y == 0 && collision.tag == "Turret")
         {
-            moveTo.x = collision.transform.position.x;
-            moveTo.y = collision.transform.position.y;
+            Vector2 temp = offset(collision.transform.position, transform.position);
+            moveTo.x = temp.x;
+            moveTo.y = temp.y;
+
+            Vector3 lookingAt = new Vector3(collision.transform.localPosition.x, collision.transform.localPosition.y, 0);
+            transform.LookAt(lookingAt);
+            
             this.CurrentTarget = collision.GetComponent<TowerController>();
-            Debug.Log("dasdas");
+            
         }
      
 
