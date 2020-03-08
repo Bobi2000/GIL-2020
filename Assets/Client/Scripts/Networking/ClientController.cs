@@ -159,8 +159,6 @@ public class ClientController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Exiting...");
-
         StartCoroutine(LeaveServer($@"{url}/api/values/{this.username}/type/type"));
 
         //this.WriteToServer("@:logout");
@@ -174,7 +172,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -211,7 +209,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -247,7 +245,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -315,7 +313,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -361,7 +359,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
