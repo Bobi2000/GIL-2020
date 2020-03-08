@@ -77,6 +77,7 @@ public class EnemyController : MonoBehaviour
         health -= amount;
         if (this.health <= 0)
         {
+            ClientController.playerController.AddBadLuck();
             Destroy(gameObject);
             spawner.KillEnemy();
            

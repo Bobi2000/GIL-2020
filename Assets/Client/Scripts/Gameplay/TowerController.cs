@@ -22,7 +22,7 @@ public class TowerController : MonoBehaviour
     public float sellCoef = 0.6f;
     public float repairCoef = 0.4f;
 
-
+    public float SellPrice;
     public GameObject bullet;
    
 
@@ -31,6 +31,7 @@ public class TowerController : MonoBehaviour
     RandomGenerator generator = new RandomGenerator();
     void Start()
     {
+        SellPrice = TotalCost * sellCoef;
         // GetComponent<CircleCollider2D>().radius = this.Range / 10;
         //var randomStats=generator.RandomTurretStatsOnCreate(player.badLuck);
         //this.MaxHealth = this.CurrentHealth = randomStats[0];
@@ -52,7 +53,7 @@ public class TowerController : MonoBehaviour
 
         if (timeBtwShots <= 0 && Enemy != null&&IsTurret)
         {
-            Debug.Log("shoot");
+
             Shoot(Enemy);
             timeBtwShots = startTimeBtwShots;
 
@@ -72,15 +73,17 @@ public class TowerController : MonoBehaviour
         this.Damage += UpdateStats[1];
         //  this.Range += UpdateStats[2];
         GetComponent<CircleCollider2D>().radius = this.Range / 10;
-        var avatageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
-        NextUpgradeCost += avatageUpgrade * 10;
+        var avarageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
+        NextUpgradeCost += avarageUpgrade * 10;
+        SellPrice = NextUpgradeCost * sellCoef;
         var logUpgrade = $"{Damage} {Range } ";
         
     }
 
     public void Sell()
     {      
-        ClientController.playerController.AddGold(sellCoef * TotalCost);
+        ClientController.playerController.AddGold(SellPrice);
+        Destroy(this.gameObject);
         
     }
 
@@ -89,7 +92,7 @@ public class TowerController : MonoBehaviour
         ClientController.playerController.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
         this.CurrentHealth = MaxHealth;
     }
-
+   
     void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Enemys")
@@ -101,7 +104,7 @@ public class TowerController : MonoBehaviour
     {
 
         var currenBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
-        currenBullet.GetComponent<BulletController>().ShootEnemy(enemyToShoot);
+        currenBullet.GetComponent<BulletController>().ShootEnemy(enemyToShoot,Damage);
     }
     public void DealTurretDamage(float amount)
     {

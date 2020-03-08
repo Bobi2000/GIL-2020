@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
+
     public bool isPlayer = false;
 
     public string username;
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI usernameText;
 
     public float money = 100f;
+
+    public int points;
 
     public int badLuck { get; private set; }
 
@@ -43,6 +46,14 @@ public class PlayerController : MonoBehaviour
         this.money += amount;
         this.ChangeTextValue(this.money);
     }
+    public void AddBadLuck()
+    {
+        this.badLuck++;
+    } 
+    public void RemoveBadLuck()
+    {
+        this.badLuck--;
+    }
     public void SubtracGold(float amount)
     {
         if (money-amount<0)
@@ -56,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetName()
     {
-        Debug.Log("setname");
+
         this.usernameText.text = this.username;
     }
 

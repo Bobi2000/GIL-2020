@@ -10,7 +10,7 @@ public class TileController : MonoBehaviour
 
     public GameObject Turret;
     public GameObject HorizontalWall;
-    public GameObject VerticalWall;
+   
 
     private GameObject building;
    
@@ -93,28 +93,38 @@ public class TileController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && isBuiltOn == false)
         {
-            var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
-            building = Instantiate(Turret, vector3, Quaternion.identity);
-            isBuiltOn = true;
-            isPlayers = true;
+            var towerPrice = 25;
+            if (ClientController.playerController.money - towerPrice >= 0)
+            {
+                var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+                building = Instantiate(Turret, vector3, Quaternion.identity);
+                isBuiltOn = true;
+                isPlayers = true;
 
-            StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
+                ClientController.playerController.SubtracGold(towerPrice);
+                StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
+                ClientController.playerController.RemoveBadLuck();
+            }
 
 
         }
          if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
-            var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+            var lumbPrice = 15;
+            if (ClientController.playerController.money - lumbPrice >= 0)
+            {
+                var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+                Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+                diff.Normalize();
 
-            Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            diff.Normalize();
-
-            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            var rotaion = Quaternion.Euler(0f, 0f, rot_z - 90);
-            building = Instantiate(HorizontalWall, vector3, rotaion);
-            isBuiltOn = true;
-
-            StartCoroutine(SendBaricadeRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/{rotaion.x}/{rotaion.y}/{rotaion.z}"));
+                float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+                var rotaion = Quaternion.Euler(0f, 0f, rot_z - 90);
+                building = Instantiate(HorizontalWall, vector3, rotaion);
+                isBuiltOn = true;
+                ClientController.playerController.RemoveBadLuck();
+                ClientController.playerController.SubtracGold(lumbPrice);
+                StartCoroutine(SendBaricadeRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/{rotaion.x}/{rotaion.y}/{rotaion.z}"));
+            }
         }
         
     }
