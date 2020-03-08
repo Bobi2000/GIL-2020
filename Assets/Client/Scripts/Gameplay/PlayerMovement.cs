@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject player;
-    private Vector2 NextPosition;
+    //private Vector2 NextPosition;
     private Vector2 tempPos;
 
     [SerializeField] Animator anim;

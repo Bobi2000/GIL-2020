@@ -19,7 +19,7 @@ public class ClientController : MonoBehaviour
 
     public PlayerMovement playerMovement;
 
-    private HashSet<string> playerList=new HashSet<string>();
+    private HashSet<string> playerList = new HashSet<string>();
 
     public GameObject grid;
     public GameObject ghouls;
@@ -270,7 +270,7 @@ public class ClientController : MonoBehaviour
 
                         playerController = player.GetComponent<PlayerController>();
                         playerList.Add(args[0]);
-                       // Camera.main.transform.SetParent(player.transform);
+                        // Camera.main.transform.SetParent(player.transform);
 
                         this.players.Add(player);
                     }

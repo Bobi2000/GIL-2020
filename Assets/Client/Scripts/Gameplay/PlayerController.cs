@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,13 @@ public class PlayerController : MonoBehaviour
         this.goldText = gm.GetComponent<TextMeshProUGUI>();
 
         this.ChangeTextValue(this.money);
+
+        InvokeRepeating("GiveMoney", 8, 8);
+    }
+
+    public void GiveMoney()
+    {
+        this.AddGold(5);
     }
 
     private void Death()

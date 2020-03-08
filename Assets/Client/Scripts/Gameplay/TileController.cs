@@ -14,6 +14,8 @@ public class TileController : MonoBehaviour
 
     public bool isBuiltOn = false;
 
+    public bool isPlayers = false;
+
     public static TowerController currentlySelectedTower;
 
     //tower popup texts
@@ -22,7 +24,6 @@ public class TileController : MonoBehaviour
     TextMeshProUGUI Attack;
     TextMeshProUGUI Range;
     TextMeshProUGUI UpgradeCost;
-
 
     private void Start()
     {
@@ -90,6 +91,7 @@ public class TileController : MonoBehaviour
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
             building = Instantiate(Turret, vector3, Quaternion.identity);
             isBuiltOn = true;
+            isPlayers = true;
 
             StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
 

@@ -24,10 +24,6 @@ public class TowerController : MonoBehaviour
 
     public GameObject bullet;
 
-    
-
-   
-
     //PlayerController player = new PlayerController();
 
     private GameObject Enemy;
@@ -35,7 +31,6 @@ public class TowerController : MonoBehaviour
     RandomGenerator generator = new RandomGenerator();
     void Start()
     {
-        
         // GetComponent<CircleCollider2D>().radius = this.Range / 10;
         //var randomStats=generator.RandomTurretStatsOnCreate(player.badLuck);
         //this.MaxHealth = this.CurrentHealth = randomStats[0];
@@ -57,7 +52,6 @@ public class TowerController : MonoBehaviour
 
         if (timeBtwShots <= 0 && Enemy != null)
         {
-
             Shoot(Enemy);
             timeBtwShots = startTimeBtwShots;
 
@@ -102,6 +96,7 @@ public class TowerController : MonoBehaviour
     }
     private void Shoot(GameObject enemyToShoot)
     {
+
         var currenBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
         currenBullet.GetComponent<BulletController>().ShootEnemy(enemyToShoot);
     }
