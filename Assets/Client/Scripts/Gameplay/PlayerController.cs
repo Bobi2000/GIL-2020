@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public float money = 100f;
 
+    public int points;
+
     public int badLuck { get; private set; }
 
     public int kills { get; private set; }
