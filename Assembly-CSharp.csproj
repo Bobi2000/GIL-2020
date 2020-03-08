@@ -78,6 +78,7 @@
     <Compile Include="Assets\Client\Scripts\Gameplay\UpDownSpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Networking\ClientController.cs" />
     <Compile Include="Assets\Ghoul_Menu.cs" />
+    <Compile Include="Assets\RotateMonster.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
