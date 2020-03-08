@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sprites/wall-horizontal.prefab.meta
 guid: 2595023ee812c2a4a886dee247fefa0f
 PrefabImporter:
+=======
+guid: 8875a14f0720a844db45887878c949e0
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 28e5fda3cad7fca5cad3ac9bcf837ddcb8c3e659:Assets/Sprites/Ghoul Animation.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
