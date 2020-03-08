@@ -100,10 +100,6 @@ public class TowerController : MonoBehaviour
     public void DealTurretDamage(float amount)
     {
         this.CurrentHealth -= amount;
-        if (this.CurrentHealth <= 0)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
+        
     }
 }
