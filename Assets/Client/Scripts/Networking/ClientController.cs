@@ -59,6 +59,7 @@ public class ClientController : MonoBehaviour
 
         InvokeRepeating("GetTowers", 0.5f, 0.5f);
         //new Thread(this.ReadFromServer).Start();
+        InvokeRepeating("GetBaricades", 0.5f, 0.5f);
     }
 
     private void Update()
@@ -115,6 +116,11 @@ public class ClientController : MonoBehaviour
         StartCoroutine(Towers($@"{url}/api/values/5"));
     }
 
+    private void GetBaricades()
+    {
+        StartCoroutine(Baricades($@"{url}/x/x/x/x/x/x/x"));
+    }
+
     private void SetUp()
     {
         this.username = this.usernameText.text;
@@ -131,10 +137,46 @@ public class ClientController : MonoBehaviour
         //this.WriteToServer("@:logout");
     }
 
+    private IEnumerator Baricades(string url)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+                downloadHandler = request.downloadHandler;
+                var text = downloadHandler.text.Split(new[] { '"', '[', '\\', ']', '$' }).Where(a => a.Length > 3).ToList();
+                var tiles = gridGenerator.GetComponent<GridGenerator>().Tiles;
+
+                foreach (var item in text)
+                {
+                    var args = item.Split(':');
+                    var key = new Vector3(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+                    if (tiles.ContainsKey(key))
+                    {
+                        var tileToBuil = tiles[key];
+                        if (tileToBuil.GetComponent<TileController>().isBuiltOn == false)
+                        {
+                            float x = float.Parse(args[4]);
+                            float y = float.Parse(args[5]);
+                            float z = float.Parse(args[6]);
+                            tileToBuil.GetComponent<TileController>().CreateBaricade(x,y,z);
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+
     private IEnumerator Towers(string url)
     {
-
-
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();

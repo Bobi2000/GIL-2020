@@ -112,6 +112,8 @@ public class TileController : MonoBehaviour
             var rotaion = Quaternion.Euler(0f, 0f, rot_z - 90);
             building = Instantiate(HorizontalWall, vector3, rotaion);
             isBuiltOn = true;
+
+            StartCoroutine(SendBaricadeRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/{rotaion.x}/{rotaion.y}/{rotaion.z}"));
         }
         
     }
@@ -121,7 +123,30 @@ public class TileController : MonoBehaviour
         Instantiate(Turret, vector3, Quaternion.identity);
         isBuiltOn = true;
     }
+    public void CreateBaricade(float x,float y,float z)
+    {
+        var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+        var rotaion = Quaternion.Euler(x, y,z);
+        building = Instantiate(HorizontalWall, vector3, rotaion);
+        isBuiltOn = true;
+    }
     private IEnumerator SendRequest(string url)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+            }
+        }
+    }
+
+    private IEnumerator SendBaricadeRequest(string url)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
