@@ -102,9 +102,10 @@ public class TileController : MonoBehaviour
 
 
         }
-        else if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
+         if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+
             Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             diff.Normalize();
 
@@ -127,7 +128,7 @@ public class TileController : MonoBehaviour
     {
         var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
         var rotaion = Quaternion.Euler(x, y,z);
-        building = Instantiate(HorizontalWall, vector3, rotaion);
+        Instantiate(HorizontalWall, vector3, rotaion);
         isBuiltOn = true;
     }
     private IEnumerator SendRequest(string url)
