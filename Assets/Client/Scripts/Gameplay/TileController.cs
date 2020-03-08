@@ -108,7 +108,7 @@ public class TileController : MonoBehaviour
 
 
         }
-        else if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
+         if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
             var lumbPrice = 15;
             if (ClientController.playerController.money - lumbPrice >= 0)
@@ -138,7 +138,7 @@ public class TileController : MonoBehaviour
     {
         var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
         var rotaion = Quaternion.Euler(x, y,z);
-        building = Instantiate(HorizontalWall, vector3, rotaion);
+        Instantiate(HorizontalWall, vector3, rotaion);
         isBuiltOn = true;
     }
     private IEnumerator SendRequest(string url)
