@@ -67,15 +67,9 @@ public class TowerController : MonoBehaviour
             timeBtwShots -= Time.deltaTime;
         }
     }
-    private void OnMouseOver()
-    {
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.7f);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Upgrade();
-        }
-    }
-    private void Upgrade()
+
+
+    public void Upgrade()
     {
 
         var UpdateStats = generator.RandomTurretStatsOnUpdate(ClientController.playerController.badLuck);
@@ -89,9 +83,11 @@ public class TowerController : MonoBehaviour
         
     }
 
-    private void Sell()
+    public void Sell()
     {
+        
         ClientController.playerController.AddGold(sellCoef * TotalCost);
+        
     }
 
     private void Repair()
