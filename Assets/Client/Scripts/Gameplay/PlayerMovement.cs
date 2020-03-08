@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {

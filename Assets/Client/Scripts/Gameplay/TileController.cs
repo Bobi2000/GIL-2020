@@ -165,7 +165,7 @@ public class TileController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+               // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -184,7 +184,7 @@ public class TileController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("build wall");
+           // Debug.Log("build wall");
         }
     }
     void OnMouseDown()
@@ -198,7 +198,7 @@ public class TileController : MonoBehaviour
         if (x == 1)
         {
             //Upgrade tower
-            Debug.Log("Upgrade tower somehow!");
+            //Debug.Log("Upgrade tower somehow!");
             currentlySelectedTower.Upgrade();
         }
         else if (x == 2)

@@ -78,15 +78,19 @@ public class ClientController : MonoBehaviour
             }
 
             var players = this.players.OrderByDescending(p => p.GetComponent<PlayerController>().points).Take(3).ToList();
+            if (players.Count>=3)
+            {
 
-            this.scoreBoard1.text = players[0].GetComponent<PlayerController>().username + " : " + players[0].GetComponent<PlayerController>().points;
-            if (players[1] != null)
-            {
-                this.scoreBoard2.text = players[1].GetComponent<PlayerController>().username + " : " + players[1].GetComponent<PlayerController>().points;
-            }
-            if (players[2] != null)
-            {
-                this.scoreBoard3.text = players[2].GetComponent<PlayerController>().username + " : " + players[2].GetComponent<PlayerController>().points;
+
+                this.scoreBoard1.text = players[0].GetComponent<PlayerController>().username + " : " + players[0].GetComponent<PlayerController>().points;
+                if (players[1] != null)
+                {
+                    this.scoreBoard2.text = players[1].GetComponent<PlayerController>().username + " : " + players[1].GetComponent<PlayerController>().points;
+                }
+                if (players[2] != null)
+                {
+                    this.scoreBoard3.text = players[2].GetComponent<PlayerController>().username + " : " + players[2].GetComponent<PlayerController>().points;
+                }
             }
         }
     }
@@ -159,13 +163,11 @@ public class ClientController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("Exiting...");
-
         StartCoroutine(LeaveServer($@"{url}/api/values/{this.username}/type/type"));
 
         //this.WriteToServer("@:logout");
     }
-    
+
     private IEnumerator Baricades(string url)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
@@ -174,7 +176,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -186,16 +188,18 @@ public class ClientController : MonoBehaviour
                 {
                     var args = item.Split(':');
                     var key = new Vector3(float.Parse(args[0]), float.Parse(args[1]), float.Parse(args[2]));
-                    
+
                     if (tiles.ContainsKey(key))
                     {
+                        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                        ci.NumberFormat.CurrencyDecimalSeparator = ".";
                         var tileToBuil = tiles[key];
                         if (tileToBuil.GetComponent<TileController>().isBuiltOn == false)
                         {
-                            float x = float.Parse(args[3]);
-                            float y = float.Parse(args[4]);
-                            float z = float.Parse(args[5]);
-                            tileToBuil.GetComponent<TileController>().CreateBaricade(x,y,z);
+                            float x = float.Parse(args[3], NumberStyles.Any, ci);
+                            float y = float.Parse(args[4], NumberStyles.Any, ci);
+                            float z = float.Parse(args[5], NumberStyles.Any, ci);
+                            tileToBuil.GetComponent<TileController>().CreateBaricade(x, y, z);
                         }
                     }
                 }
@@ -211,7 +215,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -222,8 +226,8 @@ public class ClientController : MonoBehaviour
                 foreach (var item in text)
                 {
                     var args = item.Split(':');
-                    var d = new Vector3(12f,2f,1f);
-                    
+                    var d = new Vector3(12f, 2f, 1f);
+
                     var key = new Vector3(float.Parse(args[1]), float.Parse(args[2]), float.Parse(args[3]));
                     if (tiles.ContainsKey(key))
                     {
@@ -247,7 +251,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                //Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -315,7 +319,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                // Debug.LogError("Request Error: " + request.error);
             }
             else
             {
@@ -361,7 +365,7 @@ public class ClientController : MonoBehaviour
 
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.LogError("Request Error: " + request.error);
+                // Debug.LogError("Request Error: " + request.error);
             }
             else
             {

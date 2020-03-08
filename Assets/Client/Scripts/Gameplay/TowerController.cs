@@ -67,17 +67,18 @@ public class TowerController : MonoBehaviour
 
     public void Upgrade()
     {
-
-        var UpdateStats = generator.RandomTurretStatsOnUpdate(ClientController.playerController.badLuck);
-        this.MaxHealth += UpdateStats[0];
-        this.Damage += UpdateStats[1];
-        //  this.Range += UpdateStats[2];
-        GetComponent<CircleCollider2D>().radius = this.Range / 10;
-        var avarageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
-        NextUpgradeCost += avarageUpgrade * 10;
-        SellPrice = NextUpgradeCost * sellCoef;
-        var logUpgrade = $"{Damage} {Range } ";
-        
+        if (ClientController.playerController.money - NextUpgradeCost >= 0)
+        {
+            var UpdateStats = generator.RandomTurretStatsOnUpdate(ClientController.playerController.badLuck);
+            this.MaxHealth += UpdateStats[0];
+            this.Damage += UpdateStats[1];
+            ClientController.playerController.SubtracGold(NextUpgradeCost);
+            GetComponent<CircleCollider2D>().radius = this.Range / 10;
+            var avarageUpgrade = (UpdateStats[0] + UpdateStats[1] + UpdateStats[2]) / 3;
+            NextUpgradeCost += avarageUpgrade * 10;
+            SellPrice = NextUpgradeCost * sellCoef;
+            var logUpgrade = $"{Damage} {Range } ";
+        }
     }
 
     public void Sell()
@@ -102,9 +103,11 @@ public class TowerController : MonoBehaviour
     }
     private void Shoot(GameObject enemyToShoot)
     {
-
+        if (enemyToShoot!=null)
+        {
         var currenBullet = Instantiate(bullet, this.transform.position, Quaternion.identity);
         currenBullet.GetComponent<BulletController>().ShootEnemy(enemyToShoot,Damage);
+        }
     }
     public void DealTurretDamage(float amount)
     {
