@@ -10,11 +10,21 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI usernameText;
 
-    public float money { get; private set; }
+    public float money = 100f;
 
     public int badLuck { get; private set; }
 
     public int kills { get; private set; }
+
+    public TextMeshProUGUI goldText;
+
+    private void Start()
+    {
+        var gm = GameObject.Find("TextGold");
+        this.goldText = gm.GetComponent<TextMeshProUGUI>();
+
+        this.ChangeTextValue(this.money);
+    }
 
     private void Death()
     {
@@ -23,7 +33,7 @@ public class PlayerController : MonoBehaviour
     public void AddGold(float amount)
     {
         this.money += amount;
-
+        this.ChangeTextValue(this.money);
     }
     public void SubtracGold(float amount)
     {
@@ -33,11 +43,17 @@ public class PlayerController : MonoBehaviour
             return;
         }
         this.money -= amount;
+        this.ChangeTextValue(this.money);
     }
 
     public void SetName()
     {
         Debug.Log("setname");
         this.usernameText.text = this.username;
+    }
+
+    private void ChangeTextValue(float totallMoney)
+    {
+        this.goldText.text = $"{totallMoney:F2}";
     }
 }

@@ -85,9 +85,7 @@ public class TowerController : MonoBehaviour
 
     public void Sell()
     {
-        
         ClientController.playerController.AddGold(sellCoef * TotalCost);
-        
     }
 
     private void Repair()

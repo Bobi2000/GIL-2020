@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     public float attack;
     public float gold;
 
+
+    
     private float timeBtwShots;
     public float startTimeBtwShots = 2f;
 
@@ -43,11 +45,14 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-        this.transform.position = Vector2.MoveTowards(this.transform.position, moveTo, Time.deltaTime * speed);
-        if (this.CurrentTarget == null)
+        if (CurrentTarget == null)
         {
-            this.moveTo.x = 0;
-            this.moveTo.y = 0;
+            this.transform.position = Vector2.MoveTowards(this.transform.position, moveTo, Time.deltaTime * speed);
+            if (this.CurrentTarget == null)
+            {
+                this.moveTo.x = 0;
+                this.moveTo.y = 0;
+            }
         }
         
         var Vector2Position = new Vector2(moveTo.x, moveTo.y);

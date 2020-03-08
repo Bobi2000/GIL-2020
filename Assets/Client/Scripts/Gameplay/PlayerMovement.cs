@@ -7,6 +7,10 @@ using UnityEngine.Networking;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject player;
+    private Vector2 NextPosition;
+    private Vector2 tempPos;
+
+    [SerializeField] Animator anim;
     private Vector3 NextPosition;
     GameObject Name;
     Quaternion rot;
@@ -15,9 +19,12 @@ public class PlayerMovement : MonoBehaviour
 
     private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
+    Rigidbody2D rb;
+
     private void Start()
     {
         this.playerController = this.gameObject.GetComponent<PlayerController>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         Name = this.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
         rot = Name.transform.rotation;
         
@@ -29,6 +36,18 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        /*NextPosition.x = this.transform.position.x;
+        NextPosition.y = this.transform.position.y;
+        if (tempPos.x!=NextPosition.x&&tempPos.y!=NextPosition.y)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
+        tempPos.x = NextPosition.x;
+        tempPos.y = NextPosition.y;*/
         /*if (this.gameObject.transform.position == new Vector3(0, 0, 0))
         {
             this.GetComponent<SpriteRenderer>().enabled = false;
