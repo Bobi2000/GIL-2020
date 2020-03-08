@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public GameObject player;
     private Vector3 NextPosition;
+    GameObject Name;
+    Quaternion rot;
 
     private PlayerController playerController;
 
@@ -16,8 +18,15 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         this.playerController = this.gameObject.GetComponent<PlayerController>();
+        Name = this.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        rot = Name.transform.rotation;
+        
     }
 
+    private void LateUpdate()
+    {
+        Name.transform.rotation = rot;
+    }
     private void Update()
     {
         /*if (this.gameObject.transform.position == new Vector3(0, 0, 0))
