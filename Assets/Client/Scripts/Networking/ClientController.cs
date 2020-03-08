@@ -156,20 +156,19 @@ public class ClientController : MonoBehaviour
                 foreach (var item in text)
                 {
                     var args = item.Split(':');
-                    var key = new Vector3(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+                    var key = new Vector3(float.Parse(args[0]), float.Parse(args[1]), float.Parse(args[2]));
+                    
                     if (tiles.ContainsKey(key))
                     {
                         var tileToBuil = tiles[key];
                         if (tileToBuil.GetComponent<TileController>().isBuiltOn == false)
                         {
-                            float x = float.Parse(args[4]);
-                            float y = float.Parse(args[5]);
-                            float z = float.Parse(args[6]);
+                            float x = float.Parse(args[3]);
+                            float y = float.Parse(args[4]);
+                            float z = float.Parse(args[5]);
                             tileToBuil.GetComponent<TileController>().CreateBaricade(x,y,z);
                         }
-
                     }
-
                 }
             }
         }
@@ -194,7 +193,9 @@ public class ClientController : MonoBehaviour
                 foreach (var item in text)
                 {
                     var args = item.Split(':');
-                    var key = new Vector3(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+                    var d = new Vector3(12f,2f,1f);
+                    
+                    var key = new Vector3(float.Parse(args[1]), float.Parse(args[2]), float.Parse(args[3]));
                     if (tiles.ContainsKey(key))
                     {
                         var tileToBuil = tiles[key];
@@ -202,9 +203,7 @@ public class ClientController : MonoBehaviour
                         {
                             tileToBuil.GetComponent<TileController>().CreateTower();
                         }
-
                     }
-
                 }
             }
         }

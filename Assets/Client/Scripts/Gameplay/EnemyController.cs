@@ -10,8 +10,6 @@ public class EnemyController : MonoBehaviour
     public float attack;
     public float gold;
 
-
-    
     private float timeBtwShots;
     public float startTimeBtwShots = 2f;
 
@@ -21,15 +19,10 @@ public class EnemyController : MonoBehaviour
 
     private Vector2 moveTo = new Vector2(0, 0);
     private TowerController CurrentTarget;
-    
 
     private bool canAttack = false;
 
-    private void Start()
-    {
-        
-
-    }
+    public bool IsAttacking = false;
 
     private void Update()
     {
@@ -47,25 +40,25 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-        
-            this.transform.position = Vector2.MoveTowards(this.transform.position, moveTo, Time.deltaTime * speed);
-            if (this.CurrentTarget == null)
-            {
-                this.moveTo.x = 0;
-                this.moveTo.y = 0;
-            }
-        
-        
+        this.transform.position = Vector2.MoveTowards(this.transform.position, moveTo, Time.deltaTime * speed);
+        if (this.CurrentTarget == null)
+        {
+            this.moveTo.x = 0;
+            this.moveTo.y = 0;
+        }
+
         var Vector2Position = new Vector2(moveTo.x, moveTo.y);
         Vector3 lookpos = Camera.main.ScreenToViewportPoint(Vector2Position);
         float angle = Mathf.Atan2(moveTo.y, moveTo.x) * Mathf.Rad2Deg;
         this.gameObject.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
 
     }
     private void Attack()
     {
         if (CurrentTarget != null)
         {
+            this.canAttack = true;
             CurrentTarget.DealTurretDamage(attack);
             var targetHp = CurrentTarget.CurrentHealth;
             if (targetHp <= 0 || CurrentTarget == null)
@@ -77,7 +70,7 @@ public class EnemyController : MonoBehaviour
                 return;
             }
         }
-        
+
     }
     public void TakeDamage(float amount)
     {
@@ -97,7 +90,7 @@ public class EnemyController : MonoBehaviour
             this.CurrentTarget = collision.GetComponent<TowerController>();
             Debug.Log("dasdas");
         }
-     
+
 
     }
 }
