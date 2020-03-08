@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -147,15 +148,11 @@ public class ClientController : MonoBehaviour
                     var args1Number = args[1].Replace(',', '.');
                     var args2Number = args[2].Replace(',', '.');
                     var vector2 = new Vector2(1f, 1f);
-                    try
-                    {
-                        vector2 = new Vector2(float.Parse(args[1]), float.Parse(args[2]));
-                    }
-                    catch (Exception)
-                    {
-
-                        vector2 = new Vector2((float)decimal.Parse(args[1]), (float)decimal.Parse(args[2]));
-                    }
+                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    ci.NumberFormat.CurrencyDecimalSeparator = ".";
+                    vector2 = new Vector2(float.Parse(args[1], NumberStyles.Any, ci), float.Parse(args[2], NumberStyles.Any, ci));
+                       
+                  
                     
 
                     var player = this.players.Where(p => p.GetComponent<PlayerController>().username == username && !p.GetComponent<PlayerController>().isPlayer).FirstOrDefault();
@@ -179,7 +176,8 @@ public class ClientController : MonoBehaviour
 
                     if (!containsItem)
                     {
-                        var newVector2 = new Vector2(float.Parse(args1Number), float.Parse(args2Number));
+                        
+                        var newVector2 = new Vector2(float.Parse(args1Number, NumberStyles.Any, ci), float.Parse(args2Number, NumberStyles.Any, ci));
                         var newPlayer = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
                         newPlayer.GetComponent<PlayerController>().username = args[0];
                         newPlayer.GetComponent<PlayerController>().SetName();
@@ -208,8 +206,10 @@ public class ClientController : MonoBehaviour
 
                 foreach (var item in text)
                 {
+                    CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                    ci.NumberFormat.CurrencyDecimalSeparator = ".";
                     var args = item.Split(':');
-                    var vector2 = new Vector2(float.Parse(args[1]), float.Parse(args[2]));
+                    var vector2 = new Vector2(float.Parse(args[1], NumberStyles.Any, ci), float.Parse(args[2], NumberStyles.Any, ci));
 
                     if (args[0] == username)
                     {
