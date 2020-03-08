@@ -31,7 +31,6 @@ public class TileController : MonoBehaviour
     }
     public void CreateTower()
     {
-
     }
     private IEnumerator SendRequest(string url)
     {
