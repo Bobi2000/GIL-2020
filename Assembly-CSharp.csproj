@@ -77,6 +77,7 @@
     <Compile Include="Assets\Client\Scripts\Gameplay\TowerController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\UIScript.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\UpDownSpawner.cs" />
+    <Compile Include="Assets\Client\Scripts\Gameplay\WallController.cs" />
     <Compile Include="Assets\Client\Scripts\Networking\ClientController.cs" />
     <Compile Include="Assets\Ghoul_Menu.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

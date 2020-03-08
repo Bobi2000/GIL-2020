@@ -84,8 +84,7 @@ public class TowerController : MonoBehaviour
     }
 
     public void Sell()
-    {
-        
+    {      
         ClientController.playerController.AddGold(sellCoef * TotalCost);
         
     }
@@ -93,6 +92,7 @@ public class TowerController : MonoBehaviour
     private void Repair()
     {
         ClientController.playerController.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
+        this.CurrentHealth = MaxHealth;
     }
 
     void OnTriggerStay2D(Collider2D collider)
