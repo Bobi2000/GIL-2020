@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Client\Scripts\Gameplay\BigSpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\BulletController.cs" />
+    <Compile Include="Assets\Client\Scripts\Gameplay\CameraFlow.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\EnemyController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\EnemySpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\GridGenerator.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Assets\Client\Scripts\Gameplay\RandomGenerator.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\TileController.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\TowerController.cs" />
+    <Compile Include="Assets\Client\Scripts\Gameplay\UIScript.cs" />
     <Compile Include="Assets\Client\Scripts\Gameplay\UpDownSpawner.cs" />
     <Compile Include="Assets\Client\Scripts\Networking\ClientController.cs" />
     <Compile Include="Assets\Ghoul_Menu.cs" />
