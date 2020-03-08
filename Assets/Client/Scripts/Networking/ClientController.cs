@@ -22,7 +22,8 @@ public class ClientController : MonoBehaviour
     public GameObject grid;
     public GameObject ghouls;
 
-    public GameObject tileController;
+    public GameObject gridGenerator;
+
     public GameObject button;
     public GameObject LoginPanel;
     public TextMeshProUGUI usernameText;
@@ -128,8 +129,8 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator Towers(string url)
     {
-        var towers = new HashSet<int>();
-        
+
+
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
             yield return request.SendWebRequest();
@@ -142,16 +143,21 @@ public class ClientController : MonoBehaviour
             {
                 downloadHandler = request.downloadHandler;
                 var text = downloadHandler.text.Split(new[] { '"', '[', '\\', ']', '$' }).Where(a => a.Length > 3).ToList();
+                var tiles = gridGenerator.GetComponent<GridGenerator>().Tiles;
 
                 foreach (var item in text)
                 {
                     var args = item.Split(':');
-                    if (towers.Contains(int.Parse(args[0])))
+                    var key = new Vector3(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+                    if (tiles.ContainsKey(key))
                     {
-                        continue;
+                        var tileToBuil = tiles[key];
+                        if (tileToBuil.GetComponent<TileController>().isBuiltOn == false)
+                        {
+                            tileToBuil.GetComponent<TileController>().CreateTower();
+                        }
+
                     }
-                    towers.Add(int.Parse(args[0]));
-                    tileController.GetComponent<TileController>().CreateTower();
                     Debug.Log("");
                 }
             }
@@ -191,9 +197,9 @@ public class ClientController : MonoBehaviour
                     CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
                     ci.NumberFormat.CurrencyDecimalSeparator = ".";
                     vector2 = new Vector2(float.Parse(args[1], NumberStyles.Any, ci), float.Parse(args[2], NumberStyles.Any, ci));
-                       
-                  
-                    
+
+
+
 
                     var player = this.players.Where(p => p.GetComponent<PlayerController>().username == username && !p.GetComponent<PlayerController>().isPlayer).FirstOrDefault();
 
@@ -216,7 +222,7 @@ public class ClientController : MonoBehaviour
 
                     if (!containsItem)
                     {
-                        
+
                         var newVector2 = new Vector2(float.Parse(args1Number, NumberStyles.Any, ci), float.Parse(args2Number, NumberStyles.Any, ci));
                         var newPlayer = Instantiate(this.playerPrefab, vector2, Quaternion.identity);
                         newPlayer.GetComponent<PlayerController>().username = args[0];
