@@ -256,6 +256,8 @@ MonoBehaviour:
   isPlayer: 0
   username: 
   usernameText: {fileID: 1902395863819982089}
+  money: 100
+  goldText: {fileID: 0}
 --- !u!114 &7203671055742898827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7203671055742898824}
+  anim: {fileID: 260451164700652020}
 --- !u!95 &260451164700652020
 Animator:
   serializedVersion: 3
