@@ -9,6 +9,7 @@ public class GridGenerator : MonoBehaviour
     private int cols = 30;
     private float tileSize = 4;
 
+    public  Dictionary<Vector3, GameObject> Tiles = new Dictionary<Vector3, GameObject>();
     public GameObject grassTile;
     void Start()
     {
@@ -25,10 +26,11 @@ public class GridGenerator : MonoBehaviour
             for (int col = 0; col < cols; col++)
             {
                 var vector2 = new Vector2(x, y);
+                var vector3 = new Vector3(x, y, 1f);
                 GameObject tile = (GameObject)Instantiate(grassTile, vector2, Quaternion.identity);
 
                 tile.AddComponent<BoxCollider2D>();
-                
+                Tiles.Add(vector3, tile);
                 float posX = col * tileSize;
                 float posY = row * -tileSize;
                 //tile.transform.position = new Vector2(posX, posY);

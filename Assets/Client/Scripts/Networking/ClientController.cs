@@ -22,6 +22,7 @@ public class ClientController : MonoBehaviour
     public GameObject grid;
     public GameObject ghouls;
 
+    public GameObject tileController;
     public GameObject button;
     public GameObject LoginPanel;
     public TextMeshProUGUI usernameText;
@@ -50,10 +51,10 @@ public class ClientController : MonoBehaviour
     private void Start()
     {
         InvokeRepeating("GetMovements", 0.1f, 0.1f);
+
+        InvokeRepeating("GetTowers", 0.5f, 0.5f);
         //new Thread(this.ReadFromServer).Start();
     }
-
-
 
     private void Update()
     {
@@ -104,6 +105,11 @@ public class ClientController : MonoBehaviour
         StartCoroutine(Movement($@"{url}/api/values/"));
     }
 
+    private void GetTowers()
+    {
+        StartCoroutine(Towers($@"{url}/api/values/5"));
+    }
+
     private void SetUp()
     {
         this.username = this.usernameText.text;
@@ -118,6 +124,38 @@ public class ClientController : MonoBehaviour
         StartCoroutine(LeaveServer($@"{url}/api/values/{this.username}/type/type"));
 
         //this.WriteToServer("@:logout");
+    }
+
+    private IEnumerator Towers(string url)
+    {
+        var towers = new HashSet<int>();
+        
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+                downloadHandler = request.downloadHandler;
+                var text = downloadHandler.text.Split(new[] { '"', '[', '\\', ']', '$' }).Where(a => a.Length > 3).ToList();
+
+                foreach (var item in text)
+                {
+                    var args = item.Split(':');
+                    if (towers.Contains(int.Parse(args[0])))
+                    {
+                        continue;
+                    }
+                    towers.Add(int.Parse(args[0]));
+                    tileController.GetComponent<TileController>().CreateTower();
+                    Debug.Log("");
+                }
+            }
+        }
     }
 
     private IEnumerator Movement(string url)

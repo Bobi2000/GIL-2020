@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class TileController : MonoBehaviour
 {
     private Vector2 currentPosition;
 
     public GameObject Turret;
+
+  
+
+    private string url = @"https://webaplicationgameserver20200307081805.azurewebsites.net";
 
     private void OnMouseOver()
     {
@@ -15,13 +20,35 @@ public class TileController : MonoBehaviour
         {
             var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
             Instantiate(Turret, vector3, Quaternion.identity);
+
+            StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
+            Debug.Log(ClientController.playerController.username);
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("build wall");
         }
+    }
+    public void CreateTower()
+    {
 
     }
+    private IEnumerator SendRequest(string url)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError || request.isHttpError)
+            {
+                Debug.LogError("Request Error: " + request.error);
+            }
+            else
+            {
+            }
+        }
+    }
+
     private void OnMouseExit()
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
