@@ -161,12 +161,14 @@ public class ClientController : MonoBehaviour
                     
                     if (tiles.ContainsKey(key))
                     {
+                        CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+                        ci.NumberFormat.CurrencyDecimalSeparator = ".";
                         var tileToBuil = tiles[key];
                         if (tileToBuil.GetComponent<TileController>().isBuiltOn == false)
                         {
-                            float x = float.Parse(args[3]);
-                            float y = float.Parse(args[4]);
-                            float z = float.Parse(args[5]);
+                            float x = float.Parse(args[3], NumberStyles.Any, ci);
+                            float y = float.Parse(args[4], NumberStyles.Any, ci);
+                            float z = float.Parse(args[5], NumberStyles.Any, ci);
                             tileToBuil.GetComponent<TileController>().CreateBaricade(x,y,z);
                         }
                     }

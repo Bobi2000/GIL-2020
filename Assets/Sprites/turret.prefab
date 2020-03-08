@@ -107,6 +107,7 @@ MonoBehaviour:
   TotalCost: 10
   sellCoef: 0.6
   repairCoef: 0.4
+  SellPrice: 0
   bullet: {fileID: 4508877045111175772, guid: f788b33be2370d24fbad27359463c531, type: 3}
 --- !u!58 &2904892385103685566
 CircleCollider2D:
