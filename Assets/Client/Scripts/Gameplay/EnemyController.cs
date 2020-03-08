@@ -49,6 +49,11 @@ public class EnemyController : MonoBehaviour
             this.moveTo.x = 0;
             this.moveTo.y = 0;
         }
+        
+        var Vector2Position = new Vector2(moveTo.x, moveTo.y);
+        Vector3 lookpos = Camera.main.ScreenToViewportPoint(Vector2Position);
+        float angle = Mathf.Atan2(lookpos.y, lookpos.x) * Mathf.Rad2Deg;
+        this.gameObject.GetComponent<SpriteRenderer>().transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
     private void Attack()
