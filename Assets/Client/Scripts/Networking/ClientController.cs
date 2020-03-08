@@ -222,7 +222,7 @@ public class ClientController : MonoBehaviour
 
                         playerController = player.GetComponent<PlayerController>();
 
-                        //Camera.main.transform.SetParent(player.transform);
+                        Camera.main.transform.SetParent(player.transform);
 
                         this.players.Add(player);
                     }
