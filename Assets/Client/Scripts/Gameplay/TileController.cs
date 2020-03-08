@@ -9,8 +9,11 @@ public class TileController : MonoBehaviour
     private Vector2 currentPosition;
 
     public GameObject Turret;
+    public GameObject HorizontalWall;
+    public GameObject VerticalWall;
 
     private GameObject building;
+   
 
     public bool isBuiltOn = false;
 
@@ -48,13 +51,15 @@ public class TileController : MonoBehaviour
 
         if (this.building != null)
         {
-            var currentHp = building.GetComponent<TowerController>().CurrentHealth;
+            
+             var currentHp = building.GetComponent<TowerController>().CurrentHealth;                    
             if (currentHp <= 0)
             {
-                Destroy(gameObject);
+              
                 isBuiltOn = false;
             }
         }
+      
 
         //if (Input.GetButtonDown("Fire1") && popUP.activeSelf &&
         //     RectTransformUtility.RectangleContainsScreenPoint(
@@ -95,11 +100,20 @@ public class TileController : MonoBehaviour
 
             StartCoroutine(SendRequest($@"{url}/api/values/{vector3.x}/{vector3.y}/{vector3.z}/100/{ClientController.playerController.username}"));
 
+
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W) && isBuiltOn == false)
         {
-            Debug.Log("build wall");
+            var vector3 = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+            Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            diff.Normalize();
+
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            var rotaion = Quaternion.Euler(0f, 0f, rot_z - 90);
+            building = Instantiate(HorizontalWall, vector3, rotaion);
+            isBuiltOn = true;
         }
+        
     }
     public void CreateTower()
     {

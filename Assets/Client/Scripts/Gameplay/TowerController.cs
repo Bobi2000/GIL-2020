@@ -10,6 +10,8 @@ public class TowerController : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots = 2f;
 
+    public bool IsTurret;
+
     public float MaxHealth;
     public float CurrentHealth;
     public float Damage;
@@ -20,11 +22,9 @@ public class TowerController : MonoBehaviour
     public float sellCoef = 0.6f;
     public float repairCoef = 0.4f;
 
-    //public CircleCollider2D BulletMelle;
 
     public GameObject bullet;
-
-    //PlayerController player = new PlayerController();
+   
 
     private GameObject Enemy;
 
@@ -50,8 +50,9 @@ public class TowerController : MonoBehaviour
             Upgrade();
         }
 
-        if (timeBtwShots <= 0 && Enemy != null)
+        if (timeBtwShots <= 0 && Enemy != null&&IsTurret)
         {
+            Debug.Log("shoot");
             Shoot(Enemy);
             timeBtwShots = startTimeBtwShots;
 
@@ -78,13 +79,15 @@ public class TowerController : MonoBehaviour
     }
 
     public void Sell()
-    {
+    {      
         ClientController.playerController.AddGold(sellCoef * TotalCost);
+        
     }
 
     private void Repair()
     {
         ClientController.playerController.SubtracGold(repairCoef * TotalCost - 10 * CurrentHealth);
+        this.CurrentHealth = MaxHealth;
     }
 
     void OnTriggerStay2D(Collider2D collider)

@@ -95,3 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Turret: {fileID: 7090820784345853911, guid: da9be2ca688cc2a4487b6f97c59dd9f6, type: 3}
+  HorizontalWall: {fileID: 4960925314195061006, guid: 2595023ee812c2a4a886dee247fefa0f,
+    type: 3}
+  VerticalWall: {fileID: 3294162880354992517, guid: 56ff5d62287e9ae47bbfd7d4f74dc2bb,
+    type: 3}
+  isBuiltOn: 0
